@@ -3,7 +3,7 @@ import { z, ZodError, ZodObject } from "zod"
 import { jsonrepair } from "jsonrepair"
 
 export const defaultPromptPrefix =
-    "- You MUST respond only with valid JSON.\n- Do not include markdown.\n- Do not include explanations.\n- Do not include text outside the JSON.\n- Respond in the language requested by the instruction or the language in which it was written.\n\nOJSON must follow these rules:"
+`- You MUST respond ONLY with valid JSON.\n- The response MUST be an INSTANCE of the schema below.\n- DO NOT return the schema itself.\n- DO NOT include "$schema", "type", "properties", or "required".\n- All fields are REQUIRED.\n- The root JSON value MUST be an object.\n- Do not include markdown.\n- Do not include explanations.\n- Do not include text outside the JSON.\n- Respond in the language requested by the instruction.\n\nThe JSON must follow these rules:`
 
 export const defaultRepairPromptPrefix = `The returned JSON is invalid or does not follow the schema.\nCorrect and respond ONLY with valid JSON.`
 
@@ -175,7 +175,7 @@ export class Lsof {
             this.log("info", "Starting JSON generation", { retryCount, maxRetries: finalMaxRetries })
 
             const rawResponse = await this.generateTextResponse({ schema: schema, ...rest })
-            
+
             this.log("debug", "Raw LLM response received", { rawResponse })
 
             const [parsedResponse, wasRepaired] = this.parseJson<z.infer<T>>({
