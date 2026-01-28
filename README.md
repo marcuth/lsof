@@ -104,6 +104,27 @@ const lsof = new Lsof({
 })
 ```
 
+
+```
+
+#### 🪵 Logging & Debugging
+
+You can enable built-in logging to debug prompts, responses, and internal logic. `Lsof` uses `winston` for logging.
+
+```ts
+const lsof = new Lsof({
+    logging: {
+        enabled: true,         // defaults to false
+        level: 'debug'         // options: 'debug', 'info', 'warn', 'error'
+    }
+})
+```
+
+- **debug**: Logs the full prompt (truncated), parsing success/failure details, and internal state.
+- **info**: Logs the start and end of generation, major steps, and success.
+- **warn**: Logs first-attempt parsing failures (before repair) and retry attempts.
+- **error**: Logs final failures when retries are exhausted.
+
 ---
 
 ## 🧪 Testing
