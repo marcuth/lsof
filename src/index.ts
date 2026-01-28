@@ -175,6 +175,9 @@ export class Lsof {
             this.log("info", "Starting JSON generation", { retryCount, maxRetries: finalMaxRetries })
 
             const rawResponse = await this.generateTextResponse({ schema: schema, ...rest })
+            
+            this.log("debug", "Raw LLM response received", { rawResponse })
+
             const [parsedResponse, wasRepaired] = this.parseJson<z.infer<T>>({
                 schema: schema,
                 stringData: rawResponse,
