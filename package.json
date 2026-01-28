@@ -3,8 +3,15 @@
   "version": "0.0.1",
   "description": "Structured output enforcement layer for LLMs without native schema support",
   "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist/*",
+    "!/**/__tests__"
+  ],
   "scripts": {
-    "tests": "jest"
+    "tests": "jest",
+    "build": "tsc"
   },
   "keywords": [
     "llm structured output",
